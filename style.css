@@ -5,3 +5,21 @@
   margin: 0;
   padding: 0;
 }
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.main {
+  padding: 1rem;
+  background-color: #aaa;
+  border: none;
+  border-radius: 0.5rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
