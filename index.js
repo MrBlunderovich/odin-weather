@@ -1,9 +1,12 @@
+const main = document.querySelector("main");
+const searchInput = document.querySelector("#location");
+
 const form = document.querySelector("form");
 form.addEventListener("submit", handleUserInput);
 
 function handleUserInput(event) {
   event.preventDefault();
-  console.log(event);
+  //console.log(event);
   const location = event.target.location.value;
   makeAPICall(location);
 }
@@ -47,5 +50,20 @@ function makeAPICall(location) {
     .then((data) => {
       weatherData = data;
     })
-    .then(() => console.table([composeWeatherObject(weatherData)]));
+    .then(() => {
+      const weatherObject = composeWeatherObject(weatherData);
+      console.table([weatherObject]);
+      main.textContent = makeTextOutput(weatherObject);
+      searchInput.value = weatherObject.location;
+      //main.textContent = JSON.stringify(weatherObject);
+    });
+}
+
+function makeTextOutput(weatherObject) {
+  let output = "";
+  for (let property in weatherObject) {
+    console.log(property);
+    output = output.concat("\r\n", property, ": ", weatherObject[property]);
+  }
+  return output;
 }

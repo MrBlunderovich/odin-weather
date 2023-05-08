@@ -7,19 +7,34 @@
 }
 body {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   background-color: #ccc;
   min-height: 100vh;
   min-height: 100dvh;
 }
-.main {
-  padding: 1rem;
-  background-color: #aaa;
+.header {
+  padding: 0.5rem 1rem 1rem 1rem;
+  background-color: #777;
   border: none;
-  border-radius: 0.5rem;
 }
 form {
   display: flex;
   flex-direction: column;
+}
+input[type="search"] {
+  max-width: 200px;
+  padding: 0.2rem;
+}
+.main {
+  flex-grow: 1;
+  padding: 1rem;
+  max-width: 100vh;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+}
+.footer {
+  background-color: #555;
+  color: #aaa;
+  text-align: center;
+  padding: 0.5rem;
 }
