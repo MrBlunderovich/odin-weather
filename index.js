@@ -1,3 +1,13 @@
+const form = document.querySelector("form");
+form.addEventListener("submit", handleUserInput);
+
+function handleUserInput(event) {
+  event.preventDefault();
+  console.log(event);
+  const location = event.target.location.value;
+  makeAPICall(location);
+}
+
 async function weatherAPICall(location) {
   try {
     const response = await fetch(
@@ -31,9 +41,11 @@ function composeWeatherObject(data) {
   };
 }
 
-let weatherData = {};
-weatherAPICall("bishkek")
-  .then((data) => {
-    weatherData = data;
-  })
-  .then(() => console.log(composeWeatherObject(weatherData)));
+function makeAPICall(location) {
+  let weatherData = {};
+  weatherAPICall(location)
+    .then((data) => {
+      weatherData = data;
+    })
+    .then(() => console.table([composeWeatherObject(weatherData)]));
+}
