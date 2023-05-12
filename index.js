@@ -28,12 +28,13 @@ async function weatherAPICall(location) {
 }
 
 function composeWeatherObject(data) {
-  //console.log(data);
+  console.log(data);
   const current = data.current;
   const location = data.location;
   //console.log(location);
   return {
     location: location.name,
+    localtime: location.localtime,
     condition: current.condition.text,
     icon: current.condition.icon,
     humidity: current.humidity,
@@ -62,7 +63,7 @@ function makeAPICall(location) {
 function makeTextOutput(weatherObject) {
   let output = "";
   for (let property in weatherObject) {
-    console.log(property);
+    //console.log(property);
     output = output.concat("\r\n", property, ": ", weatherObject[property]);
   }
   return output;

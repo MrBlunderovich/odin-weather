@@ -1,21 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500;700&display=swap");
 * {
   box-sizing: border-box;
   font-family: inherit;
   font-size: 100%;
   margin: 0;
   padding: 0;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  border: 1px solid gray;
 }
 body {
   display: flex;
   flex-direction: column;
-  background-color: #ccc;
+  justify-content: space-between;
   min-height: 100vh;
   min-height: 100dvh;
-}
-.header {
-  padding: 0.5rem 1rem 1rem 1rem;
-  background-color: #777;
-  border: none;
+  background: linear-gradient(to bottom, #178bad, #184f77);
+  background-image: url("./sunrize_in_the_mountains.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  padding: 2rem;
 }
 form {
   display: flex;
@@ -25,16 +29,12 @@ input[type="search"] {
   max-width: 200px;
   padding: 0.2rem;
 }
-.main {
-  flex-grow: 1;
-  padding: 1rem;
-  max-width: 100vh;
-  overflow-wrap: break-word;
-  white-space: pre-line;
+.weather {
+  display: flex;
+  justify-content: space-between;
 }
-.footer {
-  background-color: #555;
-  color: #aaa;
-  text-align: center;
-  padding: 0.5rem;
+.forecast {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
 }

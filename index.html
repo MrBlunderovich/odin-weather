@@ -9,13 +9,31 @@
     <title>Odin Weather App</title>
   </head>
   <body>
-    <header class="header">
-      <form action="" method="post">
-        <label for="location">Choose location:</label>
-        <input type="search" name="location" id="location" value="bishkek" />
-      </form>
-    </header>
+    <main class="weather">
+      <section class="weather__primary">
+        <p class="primary__description">Sunny</p>
+        <p class="primary__location">Bishkek</p>
+        <p class="primary__date-time">Friday 12th May'23 10:51</p>
+        <p class="primary__temperature">15C</p>
+        <p class="primary__metric-imperial">Display F</p>
+        <i class="primary__icon">sun-icon</i>
+        <form action="" method="post" class="primary__form">
+          <label for="location">Search location:</label>
+          <input type="search" name="location" id="location" value="bishkek" />
+          <div class="error-message">error-message</div>
+        </form>
+      </section>
+      <section class="weather__secondary">
+        <p class="secondary__feels-like">Feels like 14C</p>
+        <p class="secondary__humidity">Humidity</p>
+        <p class="secondary__rain">Chance of rain</p>
+        <p class="secondary__wind">Wind speed</p>
+      </section>
+    </main>
+    <div class="forecast">
+      <menu class="forecast__controls">daily/hourly</menu>
+      <section class="forecast__output">mon tue wed thu fri sat sun</section>
+    </div>
     <main class="main"></main>
-    <footer class="footer">Hail Odin Project</footer>
   </body>
 </html>
