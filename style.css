@@ -15,7 +15,7 @@ body {
   justify-content: space-between;
   min-height: 100vh;
   min-height: 100dvh;
-  background: linear-gradient(to bottom, #178bad, #184f77);
+  background-color: #1b354a;
   background-image: url("./sunrize_in_the_mountains.png");
   background-repeat: no-repeat;
   background-position: center top;
@@ -28,6 +28,8 @@ form {
 input[type="search"] {
   max-width: 200px;
   padding: 0.2rem;
+  background-color: transparent;
+  border: 1px solid red;
 }
 .weather {
   display: flex;
