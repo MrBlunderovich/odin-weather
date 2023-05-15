@@ -1,4 +1,4 @@
-import SecondaryWeatherSection from "./SecondaryWeatherSection.js";
+import { populateSecondarySection } from "./SecondaryWeatherSection.js";
 
 const main = document.querySelector("main");
 const searchInput = document.querySelector("#location");
@@ -18,7 +18,7 @@ async function fetchAndDisplay(location) {
   const weatherObject = composeWeatherObject(weatherData);
   console.table([weatherObject]);
   searchInput.value = weatherObject.location;
-  populateSecondarySection(weatherData);
+  populateSecondarySection(weatherData, secondarySection);
 }
 
 async function weatherAPICall(location) {
@@ -77,7 +77,7 @@ function composeWeatherObject(data) {
   };
 }
 
-function populateSecondarySection(data) {
+/* function populateSecondarySection(data) {
   console.log(data);
   const secondaryElements = [
     {
@@ -108,7 +108,7 @@ function populateSecondarySection(data) {
   const fragment = SecondaryWeatherSection(secondaryElements);
   secondarySection.innerHTML = "";
   secondarySection.appendChild(fragment);
-}
+} */
 
 window.onload = () => {
   fetchAndDisplay("London");
