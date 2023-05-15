@@ -1,16 +1,24 @@
+import SecondaryWeatherSection from "./SecondaryWeatherSection.js";
+
 const main = document.querySelector("main");
 const searchInput = document.querySelector("#location");
+const secondarySection = document.querySelector(".weather__secondary");
 
 const form = document.querySelector("form");
 form.addEventListener("submit", handleUserInput);
 
-async function handleUserInput(event) {
+function handleUserInput(event) {
   event.preventDefault();
   const location = event.target.location.value;
+  fetchAndDisplay(location);
+}
+
+async function fetchAndDisplay(location) {
   const weatherData = await weatherAPICall(location);
   const weatherObject = composeWeatherObject(weatherData);
   console.table([weatherObject]);
   searchInput.value = weatherObject.location;
+  populateSecondarySection(weatherData);
 }
 
 async function weatherAPICall(location) {
@@ -52,6 +60,8 @@ function composeWeatherObject(data) {
     windSpeedMPS: Math.floor(+current.wind_kph * 0.28),
     windDirection: current.wind_degree,
   };
+  //console.log(primary);
+  //console.log(secondary);
   return {
     location: location.name,
     localtime: location.localtime,
@@ -62,17 +72,44 @@ function composeWeatherObject(data) {
     windSpeedMPS: Math.floor(+current.wind_kph * 0.28),
     temperature: current.temp_c,
     precipitation: current.precip_mm,
+    primary,
+    secondary,
   };
 }
 
-function populatePrimarySection(data) {
+function populateSecondarySection(data) {
   console.log(data);
+  const secondaryElements = [
+    {
+      name: "feelsLike",
+      value: data.current.feelslike_c + " C",
+      caption: "Feels Like",
+      icon: "wi-thermometer",
+    },
+    {
+      name: "humidity",
+      value: data.current.humidity + " %",
+      caption: "Humidity",
+      icon: "wi-humidity",
+    },
+    {
+      name: "chanceOfRain",
+      value: data.forecast.forecastday[0].day.daily_chance_of_rain + " %",
+      caption: "Chance of Rain",
+      icon: "wi-sprinkle",
+    },
+    {
+      name: "windSpeed",
+      value: data.current.wind_kph + " km/h",
+      caption: "Wind Speed",
+      icon: "wi-strong-wind",
+    },
+  ];
+  const fragment = SecondaryWeatherSection(secondaryElements);
+  secondarySection.innerHTML = "";
+  secondarySection.appendChild(fragment);
 }
-/* function makeTextOutput(weatherObject) {
-  let output = "";
-  for (let property in weatherObject) {
-    //console.log(property);
-    output = output.concat("\r\n", property, ": ", weatherObject[property]);
-  }
-  return output;
-} */
+
+window.onload = () => {
+  fetchAndDisplay("London");
+};

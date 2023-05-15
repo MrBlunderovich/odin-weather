@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="./weather-icons/css/weather-icons.min.css" />
+    <script src="index.js" defer type="module"></script>
     <title>Odin Weather App</title>
   </head>
   <body>
@@ -25,12 +26,7 @@
           <div class="error-message">error-message</div>
         </form>
       </section>
-      <section class="weather__secondary">
-        <p id="secondary#0" class="secondary__feels-like">Feels like 14C</p>
-        <p id="secondary#1" class="secondary__humidity">Humidity</p>
-        <p id="secondary#2" class="secondary__rain">Chance of rain</p>
-        <p id="secondary#3" class="secondary__wind">Wind speed</p>
-      </section>
+      <section class="weather__secondary"></section>
     </main>
     <div class="forecast">
       <section class="forecast__table">mon tue wed thu fri sat sun</section>
