@@ -5,17 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="./weather-icons/css/weather-icons.min.css" />
+    <script src="index.js" defer type="module"></script>
     <title>Odin Weather App</title>
   </head>
   <body>
-    <header class="header">
-      <form action="" method="post">
-        <label for="location">Choose location:</label>
-        <input type="search" name="location" id="location" value="bishkek" />
-      </form>
-    </header>
+    <main class="weather">
+      <section class="weather__primary"></section>
+      <section class="weather__secondary"></section>
+    </main>
+    <div class="forecast">
+      <section class="forecast__table">mon tue wed thu fri sat sun</section>
+    </div>
     <main class="main"></main>
-    <footer class="footer">Hail Odin Project</footer>
+    <footer class="footer">Image courtesy of picsum.photos</footer>
   </body>
 </html>
