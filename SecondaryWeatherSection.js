@@ -3,7 +3,7 @@ export function populateSecondarySection(data, targetNode) {
   const secondaryElements = [
     {
       name: "feelsLike",
-      value: data.current.feelslike_c + " C",
+      value: data.current.feelslike_c + " &deg;C",
       caption: "Feels Like",
       icon: "wi-thermometer",
     },
@@ -51,7 +51,7 @@ function SecondaryWeatherElement(element) {
   caption.textContent = element.caption;
   const value = document.createElement("span");
   value.classList.add("secondary__value");
-  value.textContent = element.value;
+  value.innerHTML = element.value;
   container.appendChild(icon);
   container.appendChild(caption);
   container.appendChild(value);
