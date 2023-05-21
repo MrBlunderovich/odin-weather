@@ -1,0 +1,17 @@
+.primary__form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.search-button {
+  background-color: transparent;
+  border: none;
+}
+.location-input {
+  max-width: 15ch;
+  font-size: 0.5;
+  background-color: transparent;
+}
+.location-input::placeholder {
+  color: #ddd;
+}

@@ -1,5 +1,5 @@
 export function populateSecondarySection(data, targetNode) {
-  console.log(data);
+  //console.log(data);
   const secondaryElements = [
     {
       name: "feelsLike",
@@ -21,7 +21,7 @@ export function populateSecondarySection(data, targetNode) {
     },
     {
       name: "windSpeed",
-      value: data.current.wind_kph + " km/h",
+      value: Math.floor(+data.current.wind_kph * 0.28) + " m/s",
       caption: "Wind Speed",
       icon: "wi-strong-wind",
     },

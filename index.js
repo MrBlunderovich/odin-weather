@@ -1,7 +1,9 @@
 import { populateSecondarySection } from "./SecondaryWeatherSection.js";
+import { populatePrimarySection } from "./PrimaryWeatherSection.js";
 
 const main = document.querySelector("main");
 const searchInput = document.querySelector("#location");
+const primarySection = document.querySelector(".weather__primary");
 const secondarySection = document.querySelector(".weather__secondary");
 
 const form = document.querySelector("form");
@@ -18,6 +20,7 @@ async function fetchAndDisplay(location) {
   const weatherObject = composeWeatherObject(weatherData);
   console.table([weatherObject]);
   searchInput.value = weatherObject.location;
+  populatePrimarySection(weatherData, primarySection);
   populateSecondarySection(weatherData, secondarySection);
 }
 
@@ -111,5 +114,5 @@ function composeWeatherObject(data) {
 } */
 
 window.onload = () => {
-  fetchAndDisplay("London");
+  fetchAndDisplay("Vladivostok");
 };
