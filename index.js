@@ -6,8 +6,9 @@ const searchInput = document.querySelector("#location");
 const primarySection = document.querySelector(".weather__primary");
 const secondarySection = document.querySelector(".weather__secondary");
 
-const form = document.querySelector("form");
-form.addEventListener("submit", handleUserInput);
+document.addEventListener("submit", handleUserInput);
+/* const form = document.querySelector("form");
+form.addEventListener("submit", handleUserInput); */
 
 function handleUserInput(event) {
   event.preventDefault();
@@ -19,7 +20,9 @@ async function fetchAndDisplay(location) {
   const weatherData = await weatherAPICall(location);
   const weatherObject = composeWeatherObject(weatherData);
   console.table([weatherObject]);
-  searchInput.value = weatherObject.location;
+  if (searchInput) {
+    searchInput.value = weatherObject.location;
+  }
   populatePrimarySection(weatherData, primarySection);
   populateSecondarySection(weatherData, secondarySection);
 }

@@ -1,5 +1,5 @@
 export function populatePrimarySection(data, targetNode) {
-  console.log(data);
+  //console.log(data);
 
   targetNode.innerHTML = `
   <p class="conditions">${data.current.condition.text}</p>
@@ -14,7 +14,7 @@ export function populatePrimarySection(data, targetNode) {
       name="location" id="location"
       placeholder="Search Location..." />
     </label>
-    <button type="button" class="search-button">
+    <button type="submit" class="search-button">
       <i class="search-icon material-icons-outlined">search</i>
     </button>
   </form>
