@@ -1,4 +1,5 @@
 export function populatePrimarySection(data, targetNode) {
+  const isMetric = JSON.parse(localStorage.getItem("isMetric"));
   //console.log(data);
 
   targetNode.innerHTML = `
@@ -6,7 +7,7 @@ export function populatePrimarySection(data, targetNode) {
   <p class="location">${`${data.location.name}, ${data.location.country}`}</p>
   <p class="date">${data.location.localtime}</p>
   <p class="temperature">${data.current.temp_c} &deg;C</p>
-  <p class="units">${"Display deg.F"}</p>
+  <p class="units">Display &deg;${isMetric ? "F" : "C"}</p>
   <i class="primary__icon wi element.icon ${"wi-day-cloudy"}"></i>
   <form class="primary__form" action='#'>
     <label>

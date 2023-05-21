@@ -29,6 +29,10 @@
 .location-input::placeholder {
   color: #ddd;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
 
 .conditions {
   font-size: 2rem;
@@ -49,6 +53,7 @@
 .units {
   font-size: 0.6rem;
   margin-top: 0.2rem;
+  cursor: pointer;
 }
 .primary__icon {
   font-size: 4rem;
