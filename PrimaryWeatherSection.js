@@ -5,7 +5,7 @@ export function populatePrimarySection(data, targetNode) {
   <p class="conditions">${data.current.condition.text}</p>
   <p class="location">${`${data.location.name}, ${data.location.country}`}</p>
   <p class="date">${data.location.localtime}</p>
-  <p class="temperature">${data.current.temp_c + " deg.C"}</p>
+  <p class="temperature">${data.current.temp_c} &deg;C</p>
   <p class="units">${"Display deg.F"}</p>
   <i class="primary__icon wi element.icon ${"wi-day-cloudy"}"></i>
   <form class="primary__form" action='#'>
