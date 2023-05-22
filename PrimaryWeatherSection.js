@@ -54,35 +54,51 @@ export function populatePrimarySection(data, targetNode) {
       value: "Icon",
     },
   ];
-  /* const fragment = PrimaryWeatherSection(primaryElements);
-  targetNode.innerHTML = "";
-  targetNode.appendChild(fragment); */
+  console.log(formatDateTime(data.location.localtime));
 }
 
-/* function PrimaryWeatherSection(elements) {
-  const fragment = document.createDocumentFragment();
-  for (let element of elements) {
-    const newElement = PrimaryWeatherElement(element);
-    fragment.appendChild(newElement);
+function formatDateTime(timeData) {
+  console.log(timeData);
+  const dateTime = new Date(timeData);
+
+  let imperialTime =
+    dateTime.getHours() <= 12
+      ? dateTime.getHours() + ":" + dateTime.getMinutes() + " am"
+      : dateTime.getHours() - 12 + ":" + dateTime.getMinutes() + " pm";
+
+  const dayNumber = dateTime.getDay();
+  console.log({ dayNumber });
+  let dayName = "noName";
+  switch (dayNumber) {
+    case 0:
+      dayName = "Sunday";
+      break;
+    case 1:
+      dayName = "Monday";
+      break;
+    case 2:
+      dayName = "Tuesday";
+      break;
+    case 3:
+      dayName = "Wednesday";
+      break;
+    case 4:
+      dayName = "Thursday";
+      break;
+    case 5:
+      dayName = "Friday";
+      break;
+    case 6:
+      dayName = "Saturday";
+      break;
+
+    default:
+      break;
   }
-  return fragment;
+
+  return {
+    metricTime: dateTime.getHours() + ":" + dateTime.getMinutes(),
+    imperialTime: imperialTime,
+    day: dayName,
+  };
 }
-
-function PrimaryWeatherElement(element) {
-  const container = document.createElement("div");
-  container.classList.add(`secondary__${element.name}`, "secondary");
-  const icon = document.createElement("i");
-  icon.classList.add("secondary__icon", "wi", element.icon);
-  //icon.textContent = "@";
-  const caption = document.createElement("span");
-  caption.classList.add("secondary__caption");
-  caption.textContent = element.caption;
-  const value = document.createElement("span");
-  value.classList.add("secondary__value");
-  value.textContent = element.value;
-  container.appendChild(icon);
-  container.appendChild(caption);
-  container.appendChild(value);
-
-  return container;
-} */
