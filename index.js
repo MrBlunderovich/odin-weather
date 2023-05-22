@@ -7,16 +7,28 @@ const primarySection = document.querySelector(".weather__primary");
 const secondarySection = document.querySelector(".weather__secondary");
 
 document.addEventListener("submit", handleUserInput);
+document.addEventListener("click", handleClick);
 /* const form = document.querySelector("form");
 form.addEventListener("submit", handleUserInput); */
+
+function handleClick(event) {
+  const target = event.target;
+  if (target.matches(".units")) {
+    const oldToggleState = JSON.parse(localStorage.getItem("isMetric"));
+    localStorage.setItem("isMetric", JSON.stringify(!oldToggleState));
+    fetchAndDisplay();
+  }
+}
 
 function handleUserInput(event) {
   event.preventDefault();
   const location = event.target.location.value;
-  fetchAndDisplay(location);
+  localStorage.setItem("location", location);
+  fetchAndDisplay();
 }
 
-async function fetchAndDisplay(location) {
+async function fetchAndDisplay() {
+  const location = localStorage.getItem("location");
   const weatherData = await weatherAPICall(location);
   const weatherObject = composeWeatherObject(weatherData);
   console.table([weatherObject]);
@@ -117,5 +129,12 @@ function composeWeatherObject(data) {
 } */
 
 window.onload = () => {
-  fetchAndDisplay("Vladivostok");
+  if (!localStorage.getItem("isMetric")) {
+    localStorage.setItem("isMetric", true);
+  }
+  if (!localStorage.getItem("location")) {
+    localStorage.setItem("location", "Vladivostok");
+  }
+  //const location = localStorage.getItem("location");
+  fetchAndDisplay();
 };
