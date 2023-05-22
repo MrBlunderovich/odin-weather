@@ -1,9 +1,12 @@
 export function populateSecondarySection(data, targetNode) {
+  const isMetric = JSON.parse(localStorage.getItem("isMetric"));
   //console.log(data);
   const secondaryElements = [
     {
       name: "feelsLike",
-      value: data.current.feelslike_c + " &deg;C",
+      value: isMetric
+        ? Math.round(data.current.feelslike_c) + " &deg;C"
+        : Math.round(data.current.feelslike_f) + " &deg;F",
       caption: "Feels Like",
       icon: "wi-thermometer",
     },
@@ -21,7 +24,9 @@ export function populateSecondarySection(data, targetNode) {
     },
     {
       name: "windSpeed",
-      value: Math.floor(+data.current.wind_kph * 0.28) + " m/s",
+      value: isMetric
+        ? Math.floor(+data.current.wind_kph * 0.28) + " m/s"
+        : Math.floor(+data.current.wind_mph) + " mph",
       caption: "Wind Speed",
       icon: "wi-strong-wind",
     },
