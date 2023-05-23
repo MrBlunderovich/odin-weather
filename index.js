@@ -31,7 +31,6 @@ async function fetchAndDisplay() {
   const location = localStorage.getItem("location");
   const weatherData = await weatherAPICall(location);
   const weatherObject = composeWeatherObject(weatherData);
-  console.table([weatherObject]);
   if (searchInput) {
     searchInput.value = weatherObject.location;
   }

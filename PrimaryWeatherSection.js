@@ -1,11 +1,10 @@
 export function populatePrimarySection(data, targetNode) {
   const isMetric = JSON.parse(localStorage.getItem("isMetric"));
-  //console.log(data);
 
   targetNode.innerHTML = `
   <p class="conditions">${data.current.condition.text}</p>
   <p class="location">${`${data.location.name}, ${data.location.country}`}</p>
-  <p class="date">${data.location.localtime}</p>
+  <p class="date">${formatDateTime(data.location.localtime, isMetric)}</p>
   <p class="temperature">
     ${
       isMetric
@@ -13,7 +12,7 @@ export function populatePrimarySection(data, targetNode) {
         : Math.round(data.current.temp_f) + " &deg;F"
     }
   </p>
-  <p class="units">Display ${isMetric ? "Freedom Units" : "Metric Units"}</p>
+  <p class="units">Switch to ${isMetric ? "Freedom Units" : "Metric Units"}</p>
   <i class="primary__icon wi element.icon ${"wi-day-cloudy"}"></i>
   <form class="primary__form" action='#'>
     <label>
@@ -54,22 +53,22 @@ export function populatePrimarySection(data, targetNode) {
       value: "Icon",
     },
   ];
-  console.log(formatDateTime(data.location.localtime));
 }
 
-function formatDateTime(timeData) {
-  console.log(timeData);
+function formatDateTime(timeData, isMetric) {
   const dateTime = new Date(timeData);
-
+  const dateMinutes = String(dateTime.getMinutes()).padStart(2, "0");
+  const metricTime = dateTime.getHours() + ":" + dateMinutes;
   let imperialTime =
     dateTime.getHours() <= 12
-      ? dateTime.getHours() + ":" + dateTime.getMinutes() + " am"
-      : dateTime.getHours() - 12 + ":" + dateTime.getMinutes() + " pm";
+      ? dateTime.getHours() + ":" + dateMinutes + " am"
+      : dateTime.getHours() - 12 + ":" + dateMinutes + " pm";
 
-  const dayNumber = dateTime.getDay();
-  console.log({ dayNumber });
+  const dayIndex = dateTime.getDay();
+  const year = dateTime.getFullYear();
+  const dayNumber = dateTime.getDate();
   let dayName = "noName";
-  switch (dayNumber) {
+  switch (dayIndex) {
     case 0:
       dayName = "Sunday";
       break;
@@ -95,10 +94,51 @@ function formatDateTime(timeData) {
     default:
       break;
   }
+  const monthNumber = dateTime.getMonth();
+  let monthName = "noName";
+  switch (monthNumber) {
+    case 0:
+      monthName = "January";
+      break;
+    case 1:
+      monthName = "February";
+      break;
+    case 2:
+      monthName = "March";
+      break;
+    case 3:
+      monthName = "April";
+      break;
+    case 4:
+      monthName = "May";
+      break;
+    case 5:
+      monthName = "June";
+      break;
+    case 6:
+      monthName = "July";
+      break;
+    case 7:
+      monthName = "August";
+      break;
+    case 8:
+      monthName = "September";
+      break;
+    case 9:
+      monthName = "October";
+      break;
+    case 10:
+      monthName = "November";
+      break;
+    case 11:
+      monthName = "December";
+      break;
 
-  return {
-    metricTime: dateTime.getHours() + ":" + dateTime.getMinutes(),
-    imperialTime: imperialTime,
-    day: dayName,
-  };
+    default:
+      break;
+  }
+
+  return isMetric
+    ? `${dayName}, ${dayNumber}, ${monthName} ${year}<br/>${metricTime}`
+    : `${dayName}, ${monthName} ${dayNumber} ${year}<br/>${imperialTime}`;
 }
