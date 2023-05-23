@@ -1,6 +1,5 @@
 export function populateSecondarySection(data, targetNode) {
   const isMetric = JSON.parse(localStorage.getItem("isMetric"));
-  //console.log(data);
   const secondaryElements = [
     {
       name: "feelsLike",
@@ -50,7 +49,6 @@ function SecondaryWeatherElement(element) {
   container.classList.add(`secondary__${element.name}`, "secondary");
   const icon = document.createElement("i");
   icon.classList.add("secondary__icon", "wi", element.icon);
-  //icon.textContent = "@";
   const caption = document.createElement("span");
   caption.classList.add("secondary__caption");
   caption.textContent = element.caption;
