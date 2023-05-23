@@ -2,7 +2,7 @@ import { populateSecondarySection } from "./SecondaryWeatherSection.js";
 import { populatePrimarySection } from "./PrimaryWeatherSection.js";
 
 const main = document.querySelector("main");
-const searchInput = document.querySelector("#location");
+//const searchInput = document.querySelector("#location");
 const primarySection = document.querySelector(".weather__primary");
 const secondarySection = document.querySelector(".weather__secondary");
 
@@ -18,22 +18,31 @@ function handleClick(event) {
   }
 }
 
-function handleUserInput(event) {
+async function handleUserInput(event) {
+  console.log(event);
   event.preventDefault();
   const location = event.target.location.value;
-  localStorage.setItem("location", location);
-  fetchAndDisplay();
+  const weatherData = await fetchAndDisplay(location);
+  if (!weatherData.error) {
+    localStorage.setItem("location", weatherData.location.name);
+  } else {
+    console.log(weatherData.error.message);
+  }
 }
 
-async function fetchAndDisplay() {
-  const location = localStorage.getItem("location");
-  const weatherData = await weatherAPICall(location);
-  const weatherObject = composeWeatherObject(weatherData);
-  if (searchInput) {
-    searchInput.value = weatherObject.location;
+async function fetchAndDisplay(location) {
+  if (!location) {
+    location = localStorage.getItem("location");
   }
-  populatePrimarySection(weatherData, primarySection);
-  populateSecondarySection(weatherData, secondarySection);
+  const weatherData = await weatherAPICall(location);
+  if (!weatherData.error) {
+    populatePrimarySection(weatherData, primarySection);
+    populateSecondarySection(weatherData, secondarySection);
+  } else {
+    populatePrimarySection(weatherData, primarySection);
+  }
+
+  return weatherData;
 }
 
 async function weatherAPICall(location) {
@@ -45,48 +54,12 @@ async function weatherAPICall(location) {
       }
     );
     const data = await response.json();
+    console.log(data);
 
     return data;
   } catch (err) {
     console.warn(err);
   }
-}
-
-function composeWeatherObject(data) {
-  console.log(data);
-  const current = data.current;
-  const location = data.location;
-  const forecast = data.forecast;
-  const dayForecast = forecast.forecastday[0].day;
-  const primary = {
-    condition: current.condition.text,
-    location: location.name,
-    localtime: location.localtime,
-    temperature: current.temp_c,
-    metricImperial: "Display F",
-    icon: current.condition.icon,
-  };
-  const secondary = {
-    feelsLike: current.feelslike_c,
-    humidity: current.humidity,
-    chanceOfRain: dayForecast.daily_chance_of_rain,
-    windSpeedMPS: Math.floor(+current.wind_kph * 0.28),
-    windDirection: current.wind_degree,
-  };
-
-  return {
-    location: location.name,
-    localtime: location.localtime,
-    condition: current.condition.text,
-    icon: current.condition.icon,
-    humidity: current.humidity,
-    windDirection: current.wind_degree,
-    windSpeedMPS: Math.floor(+current.wind_kph * 0.28),
-    temperature: current.temp_c,
-    precipitation: current.precip_mm,
-    primary,
-    secondary,
-  };
 }
 
 window.onload = () => {
