@@ -1,7 +1,14 @@
 export function populatePrimarySection(data, targetNode) {
   const isMetric = JSON.parse(localStorage.getItem("isMetric"));
+  const errorElement = document.querySelector(".error");
+  if (data.error && errorElement) {
+    errorElement.textContent = data.error.message;
+  } else {
+    renderPrimarySection(data);
+  }
 
-  targetNode.innerHTML = `
+  function renderPrimarySection(data) {
+    targetNode.innerHTML = `
   <p class="conditions">${data.current.condition.text}</p>
   <p class="location">${`${data.location.name}, ${data.location.country}`}</p>
   <p class="date">${formatDateTime(data.location.localtime, isMetric)}</p>
@@ -26,33 +33,7 @@ export function populatePrimarySection(data, targetNode) {
   </form>
   <p class="error"></p>
   `;
-
-  const primaryElements = [
-    {
-      name: "conditions",
-      value: data.current.condition.text,
-    },
-    {
-      name: "location",
-      value: `${data.location.name}, ${data.location.country}`,
-    },
-    {
-      name: "date",
-      value: data.location.localtime,
-    },
-    {
-      name: "temperature",
-      value: data.current.temp_c + " deg.C",
-    },
-    {
-      name: "units",
-      value: "Display deg.F",
-    },
-    {
-      name: "icon",
-      value: "Icon",
-    },
-  ];
+  }
 }
 
 function formatDateTime(timeData, isMetric) {
