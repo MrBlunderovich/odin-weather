@@ -8,8 +8,6 @@ const secondarySection = document.querySelector(".weather__secondary");
 
 document.addEventListener("submit", handleUserInput);
 document.addEventListener("click", handleClick);
-/* const form = document.querySelector("form");
-form.addEventListener("submit", handleUserInput); */
 
 function handleClick(event) {
   const target = event.target;
@@ -31,7 +29,6 @@ async function fetchAndDisplay() {
   const location = localStorage.getItem("location");
   const weatherData = await weatherAPICall(location);
   const weatherObject = composeWeatherObject(weatherData);
-  console.table([weatherObject]);
   if (searchInput) {
     searchInput.value = weatherObject.location;
   }
@@ -49,7 +46,6 @@ async function weatherAPICall(location) {
     );
     const data = await response.json();
 
-    //console.log(data);
     return data;
   } catch (err) {
     console.warn(err);
@@ -62,7 +58,6 @@ function composeWeatherObject(data) {
   const location = data.location;
   const forecast = data.forecast;
   const dayForecast = forecast.forecastday[0].day;
-  //console.log(location);
   const primary = {
     condition: current.condition.text,
     location: location.name,
@@ -78,8 +73,7 @@ function composeWeatherObject(data) {
     windSpeedMPS: Math.floor(+current.wind_kph * 0.28),
     windDirection: current.wind_degree,
   };
-  //console.log(primary);
-  //console.log(secondary);
+
   return {
     location: location.name,
     localtime: location.localtime,
@@ -95,39 +89,6 @@ function composeWeatherObject(data) {
   };
 }
 
-/* function populateSecondarySection(data) {
-  console.log(data);
-  const secondaryElements = [
-    {
-      name: "feelsLike",
-      value: data.current.feelslike_c + " C",
-      caption: "Feels Like",
-      icon: "wi-thermometer",
-    },
-    {
-      name: "humidity",
-      value: data.current.humidity + " %",
-      caption: "Humidity",
-      icon: "wi-humidity",
-    },
-    {
-      name: "chanceOfRain",
-      value: data.forecast.forecastday[0].day.daily_chance_of_rain + " %",
-      caption: "Chance of Rain",
-      icon: "wi-sprinkle",
-    },
-    {
-      name: "windSpeed",
-      value: data.current.wind_kph + " km/h",
-      caption: "Wind Speed",
-      icon: "wi-strong-wind",
-    },
-  ];
-  const fragment = SecondaryWeatherSection(secondaryElements);
-  secondarySection.innerHTML = "";
-  secondarySection.appendChild(fragment);
-} */
-
 window.onload = () => {
   if (!localStorage.getItem("isMetric")) {
     localStorage.setItem("isMetric", true);
@@ -135,6 +96,5 @@ window.onload = () => {
   if (!localStorage.getItem("location")) {
     localStorage.setItem("location", "Vladivostok");
   }
-  //const location = localStorage.getItem("location");
   fetchAndDisplay();
 };
