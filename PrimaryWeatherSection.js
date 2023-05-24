@@ -20,7 +20,9 @@ export function populatePrimarySection(data, targetNode) {
     }
   </p>
   <p class="units">Switch to ${isMetric ? "Freedom Units" : "Metric Units"}</p>
-  <i class="primary__icon wi element.icon ${"wi-day-cloudy"}"></i>
+  <img class="primary__icon" src="${
+    data.current.condition.icon
+  }" alt="conditions icon" width="128">
   <form class="primary__form" action='#'>
     <label>
       <input type="text" class="location-input"
