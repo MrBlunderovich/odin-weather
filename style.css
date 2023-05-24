@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons+Outlined");
 @import url("./primary_section.css");
 @import url("./secondary_section.css");
+@import url("./forecast_section.css");
 * {
   box-sizing: border-box;
   font-family: inherit;

@@ -1,0 +1,17 @@
+.forecast,
+.forecast * {
+  border: 1px solid rgba(255, 255, 255, 0.473);
+}
+.forecast {
+  overflow-x: scroll;
+}
+.forecast-table {
+  font-size: 0.6rem;
+  font-weight: 200;
+}
+.forecast-table td {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  height: 1rem;
+}

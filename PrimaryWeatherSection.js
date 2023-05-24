@@ -1,3 +1,5 @@
+import { processDateTime } from "./index.js";
+
 export function populatePrimarySection(data, targetNode) {
   const isMetric = JSON.parse(localStorage.getItem("isMetric"));
   const errorElement = document.querySelector(".error");
@@ -38,8 +40,15 @@ export function populatePrimarySection(data, targetNode) {
   }
 }
 
-function formatDateTime(timeData, isMetric) {
-  const dateTime = new Date(timeData);
+export function formatDateTime(timeData, isMetric) {
+  const dateTime = processDateTime(timeData);
+  const dayName = dateTime.dayName;
+  const dayNumber = dateTime.dayNumber;
+  const monthName = dateTime.monthName;
+  const year = dateTime.year;
+  const metricTime = dateTime.metricTime;
+  const imperialTime = dateTime.imperialTime;
+  /*   const dateTime = new Date(timeData);
   const dateMinutes = String(dateTime.getMinutes()).padStart(2, "0");
   const metricTime = dateTime.getHours() + ":" + dateMinutes;
   let imperialTime =
@@ -119,7 +128,7 @@ function formatDateTime(timeData, isMetric) {
 
     default:
       break;
-  }
+  } */
 
   return isMetric
     ? `${dayName}, ${dayNumber}, ${monthName} ${year}<br/>${metricTime}`
