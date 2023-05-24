@@ -1,5 +1,3 @@
-//import conditionsCodes from "./weather_conditions";
-
 export function populatePrimarySection(data, targetNode) {
   const isMetric = JSON.parse(localStorage.getItem("isMetric"));
   const errorElement = document.querySelector(".error");
