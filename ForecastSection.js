@@ -49,21 +49,98 @@ function constructTable(arrayOf72Hours) {
     tableRowElements[rowName] = newRow;
   });
   arrayOf72Hours.forEach((hour) => {
-    tableRowElements.dayName.appendChild(makeTd(shortDayName(hour.time)));
-    tableRowElements.dayNumber.appendChild(makeTd(dayNumber(hour.time)));
-    tableRowElements.dayHour.appendChild(makeTd(dayHour(hour.time)));
-    tableRowElements.windSpeed.appendChild(makeTd(windSpeed(hour)));
-    tableRowElements.windGusts.appendChild(makeTd(windGusts(hour)));
-    tableRowElements.windDirectrion.appendChild(makeTd(">"));
-    tableRowElements.temperature.appendChild(makeTd(temperature(hour)));
-    tableRowElements.clouding.appendChild(makeTd(hour.cloud));
-    tableRowElements.precipitation.appendChild(makeTd(hour.precip_mm));
+    tableRowElements.dayName.appendChild(dayNameTd(hour));
+    tableRowElements.dayNumber.appendChild(dayNumberTd(hour));
+    tableRowElements.dayHour.appendChild(dayHourTd(hour));
+    tableRowElements.windSpeed.appendChild(windSpeedTd(hour));
+    tableRowElements.windGusts.appendChild(windGustsTd(hour));
+    tableRowElements.windDirectrion.appendChild(windDirectrionTd(hour));
+    tableRowElements.temperature.appendChild(temperatureTd(hour));
+    tableRowElements.clouding.appendChild(cloudingTd(hour));
+    tableRowElements.precipitation.appendChild(precipitationTd(hour));
   });
   console.log(tableRowElements);
 
   fragment.appendChild(tableElement);
   return fragment;
 
+  /////////// new td functions
+  function dayOrNight(data) {
+    const isDay = data.is_day;
+    return isDay ? "is-day" : "is-night";
+  }
+
+  function dayNameTd(data) {
+    const timeData = data.time;
+    const dateTime = processDateTime(timeData);
+    const dataCell = document.createElement("td");
+    dataCell.textContent = dateTime.dayName.slice(0, 2);
+    dataCell.classList.add("table-header");
+    //dataCell.style = "background-color:gray;";
+    return dataCell;
+  }
+
+  function dayNumberTd(data) {
+    const timeData = data.time;
+    const dateTime = processDateTime(timeData);
+    const dataCell = document.createElement("td");
+    dataCell.textContent = dateTime.dayNumber + ".";
+    dataCell.classList.add("table-header");
+    return dataCell;
+  }
+
+  function dayHourTd(data) {
+    const timeData = data.time;
+    const dateTime = processDateTime(timeData);
+    const dataCell = document.createElement("td");
+    dataCell.textContent = dateTime.dateHours + "h";
+    dataCell.classList.add("table-header", dayOrNight(data));
+    return dataCell;
+  }
+
+  function windSpeedTd(data) {
+    const dataCell = document.createElement("td");
+    const metricValue = Math.floor(data.wind_kph * 0.28);
+    dataCell.dataset.wind = metricValue;
+    dataCell.textContent = isMetric ? metricValue : Math.floor(data.wind_mph);
+    return dataCell;
+  }
+
+  function windGustsTd(data) {
+    const dataCell = document.createElement("td");
+    const metricValue = Math.floor(data.gust_kph * 0.28);
+    dataCell.dataset.wind = metricValue;
+    dataCell.textContent = isMetric ? metricValue : Math.floor(data.gust_mph);
+    return dataCell;
+  }
+
+  function windDirectrionTd(data) {
+    const dataCell = document.createElement("td");
+    dataCell.textContent = "->";
+    return dataCell;
+  }
+
+  function temperatureTd(data) {
+    const dataCell = document.createElement("td");
+    dataCell.textContent = isMetric
+      ? Math.round(data.temp_c)
+      : Math.round(hourData.temp_f);
+    return dataCell;
+  }
+
+  function cloudingTd(data) {
+    const dataCell = document.createElement("td");
+    dataCell.textContent = data.cloud;
+    return dataCell;
+  }
+
+  function precipitationTd(data) {
+    const dataCell = document.createElement("td");
+    dataCell.textContent = data.precip_mm;
+    return dataCell;
+  }
+  ///////////
+  /* 
   function makeTd(content) {
     const dataCell = document.createElement("td");
     dataCell.textContent = content;
@@ -100,5 +177,5 @@ function constructTable(arrayOf72Hours) {
 
   function temperature(hourData) {
     return isMetric ? Math.round(hourData.temp_c) : Math.round(hourData.temp_f);
-  }
+  } */
 }

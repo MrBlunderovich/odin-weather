@@ -1,17 +1,27 @@
 .forecast,
 .forecast * {
-  border: 1px solid rgba(255, 255, 255, 0.473);
+  /* border: 1px solid rgba(255, 255, 255, 0.473); */
 }
 .forecast {
   overflow-x: scroll;
 }
 .forecast-table {
   font-size: 0.6rem;
-  font-weight: 200;
+  background-color: #fff;
+  table-layout: fixed;
+  border-spacing: 1px;
 }
 .forecast-table td {
   display: table-cell;
   text-align: center;
   vertical-align: middle;
-  height: 1rem;
+  height: 1.2rem;
+  color: black;
+}
+.table-header {
+  background-color: #ccc;
+  min-width: 3ch;
+}
+.is-night {
+  background-color: #aaa;
 }
