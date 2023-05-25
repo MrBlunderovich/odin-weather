@@ -1,7 +1,3 @@
-.forecast,
-.forecast * {
-  /* border: 1px solid rgba(255, 255, 255, 0.473); */
-}
 .forecast {
   overflow-x: scroll;
 }

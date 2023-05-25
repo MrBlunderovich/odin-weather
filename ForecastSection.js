@@ -139,20 +139,28 @@ function constructTable(arrayOf72Hours) {
   function cloudingTd(data) {
     const dataCell = document.createElement("td");
     dataCell.textContent = +data.cloud >= 5 ? data.cloud : "";
-    dataCell.classList.add("table-clouding");
     dataCell.style = `background-color: ${cloudColor(data.cloud)};`;
     return dataCell;
 
     function cloudColor(cloudiness) {
-      const percentage = +data.cloud >= 5 ? 100 - cloudiness / 2 : 100;
+      const percentage = +cloudiness >= 5 ? 100 - cloudiness / 2 : 100;
       return `hsl(0,0%,${percentage}%)`;
     }
   }
 
   function precipitationTd(data) {
     const dataCell = document.createElement("td");
-    dataCell.textContent = data.precip_mm;
+    dataCell.textContent = +data.precip_mm > 0 ? data.precip_mm : "";
+    dataCell.style = `background-color: ${rainColor(data.precip_mm)};`;
     return dataCell;
+
+    function rainColor(raininess) {
+      let percentage = +raininess >= 0.1 ? 100 - raininess * 20 : 100;
+      if (percentage < 30) {
+        percentage = 30;
+      }
+      return `hsl(212,100%,${percentage}%)`;
+    }
   }
   ///////////
   /* 
