@@ -48,10 +48,10 @@ function constructTable(arrayOf72Hours) {
     tableElement.appendChild(newRow);
     tableRowElements[rowName] = newRow;
   });
-  arrayOf72Hours.forEach((hour) => {
-    tableRowElements.dayName.appendChild(dayNameTd(hour));
-    tableRowElements.dayNumber.appendChild(dayNumberTd(hour));
-    tableRowElements.dayHour.appendChild(dayHourTd(hour));
+  arrayOf72Hours.forEach((hour, index) => {
+    tableRowElements.dayName.appendChild(dayNameTd(hour, index));
+    tableRowElements.dayNumber.appendChild(dayNumberTd(hour, index));
+    tableRowElements.dayHour.appendChild(dayHourTd(hour, index));
     tableRowElements.windSpeed.appendChild(windSpeedTd(hour));
     tableRowElements.windGusts.appendChild(windGustsTd(hour));
     tableRowElements.windDirectrion.appendChild(windDirectrionTd(hour));
@@ -69,23 +69,31 @@ function constructTable(arrayOf72Hours) {
     const isDay = data.is_day;
     return isDay ? "is-day" : "is-night";
   }
+  function isOddDay(index) {
+    if (index > 23 && index < 48) {
+      return "odd-day";
+    } else {
+      return "even-day";
+    }
+  }
 
-  function dayNameTd(data) {
+  ///////////////
+  function dayNameTd(data, index) {
     const timeData = data.time;
     const dateTime = processDateTime(timeData);
     const dataCell = document.createElement("td");
     dataCell.textContent = dateTime.dayName.slice(0, 2);
-    dataCell.classList.add("table-header");
+    dataCell.classList.add("table-header", isOddDay(index));
     //dataCell.style = "background-color:gray;";
     return dataCell;
   }
 
-  function dayNumberTd(data) {
+  function dayNumberTd(data, index) {
     const timeData = data.time;
     const dateTime = processDateTime(timeData);
     const dataCell = document.createElement("td");
     dataCell.textContent = dateTime.dayNumber + ".";
-    dataCell.classList.add("table-header");
+    dataCell.classList.add("table-header", isOddDay(index));
     return dataCell;
   }
 
@@ -130,8 +138,15 @@ function constructTable(arrayOf72Hours) {
 
   function cloudingTd(data) {
     const dataCell = document.createElement("td");
-    dataCell.textContent = data.cloud;
+    dataCell.textContent = +data.cloud >= 5 ? data.cloud : "";
+    dataCell.classList.add("table-clouding");
+    dataCell.style = `background-color: ${cloudColor(data.cloud)};`;
     return dataCell;
+
+    function cloudColor(cloudiness) {
+      const percentage = +data.cloud >= 5 ? 100 - cloudiness / 2 : 100;
+      return `hsl(0,0%,${percentage}%)`;
+    }
   }
 
   function precipitationTd(data) {

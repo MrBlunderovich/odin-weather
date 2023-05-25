@@ -19,9 +19,12 @@
   color: black;
 }
 .table-header {
-  background-color: #ccc;
+  background-color: #ddd;
   min-width: 3ch;
 }
 .is-night {
   background-color: #aaa;
+}
+.odd-day {
+  background-color: #bbb;
 }
