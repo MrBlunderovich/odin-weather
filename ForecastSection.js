@@ -133,7 +133,24 @@ function constructTable(arrayOf72Hours) {
     dataCell.textContent = isMetric
       ? Math.round(data.temp_c)
       : Math.round(hourData.temp_f);
+    dataCell.style = `background-color: ${tempColor(data.temp_c)};`;
     return dataCell;
+
+    function tempColor(temperature) {
+      let hue = 80;
+      let lightness = 80;
+      if (temperature < -30) {
+        hue = 225;
+        let lightness = 60;
+      } else if (temperature <= 0) {
+        hue = map(temperature, -30, 0, 225, 190);
+        lightness = map(temperature, -30, 0, 60, 80);
+      } else if (temperature < 31) {
+        hue = map(temperature, 1, 30, 75, 1);
+        lightness = map(temperature, 1, 30, 80, 60);
+      }
+      return `hsl(${hue},100%,${lightness}%)`;
+    }
   }
 
   function cloudingTd(data) {
@@ -161,6 +178,12 @@ function constructTable(arrayOf72Hours) {
       }
       return `hsl(212,100%,${percentage}%)`;
     }
+  }
+
+  function map(input, in_min, in_max, out_min, out_max) {
+    return (
+      ((input - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+    );
   }
   ///////////
   /* 
