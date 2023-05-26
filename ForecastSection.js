@@ -124,7 +124,16 @@ function constructTable(arrayOf72Hours) {
 
   function windDirectrionTd(data) {
     const dataCell = document.createElement("td");
-    dataCell.textContent = "->";
+    const angle = data.wind_degree;
+    //dataCell.textContent = "->";
+    const arrow = document.createElement("i");
+    dataCell.classList.add("wind-direction-cell");
+    arrow.classList.add("wind-arrow", "wi", "wi-direction-down");
+    arrow.style = `transform:rotate(${angle}deg);`;
+    arrow.dataset.direction = data.wind_dir;
+    dataCell.dataset.direction = data.wind_dir;
+    dataCell.appendChild(arrow);
+    //wi-direction-up
     return dataCell;
   }
 

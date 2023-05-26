@@ -24,3 +24,21 @@
 .odd-day {
   background-color: #bbb;
 }
+.wind-arrow {
+  color: black;
+  font-size: 1rem;
+}
+.wind-direction-cell {
+  position: relative;
+}
+.wind-direction-cell:hover::after {
+  content: attr(data-direction);
+  position: absolute;
+  bottom: 80%;
+  background-color: #555;
+  color: #fff;
+  border-radius: 8px 8px 8px 0;
+  font-size: 1rem;
+  padding: 0.2em 0.5em;
+  z-index: 1;
+}
