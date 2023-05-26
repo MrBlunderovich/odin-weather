@@ -111,6 +111,7 @@ function constructTable(arrayOf72Hours) {
     const metricValue = Math.floor(data.wind_kph * 0.28);
     dataCell.dataset.wind = metricValue;
     dataCell.textContent = isMetric ? metricValue : Math.floor(data.wind_mph);
+    dataCell.style = `background-color: ${windColor(metricValue)};`;
     return dataCell;
   }
 
@@ -119,7 +120,24 @@ function constructTable(arrayOf72Hours) {
     const metricValue = Math.floor(data.gust_kph * 0.28);
     dataCell.dataset.wind = metricValue;
     dataCell.textContent = isMetric ? metricValue : Math.floor(data.gust_mph);
+    dataCell.style = `background-color: ${windColor(metricValue)};`;
     return dataCell;
+  }
+
+  function windColor(windSpeed) {
+    let hue = 200;
+    let lightness = 80;
+    if (windSpeed <= 2) {
+      lightness = 100;
+    } else if (windSpeed <= 12) {
+      //hue goes from 200 to 0
+      hue = map(windSpeed, 3, 12, 170, 0);
+    } else if (windSpeed <= 20) {
+      hue = map(windSpeed, 13, 20, 359, 270);
+    } else {
+      hue = 270;
+    }
+    return `hsl(${hue},100%,${lightness}%)`;
   }
 
   function windDirectrionTd(data) {
@@ -150,7 +168,7 @@ function constructTable(arrayOf72Hours) {
       let lightness = 80;
       if (temperature < -30) {
         hue = 225;
-        let lightness = 60;
+        lightness = 60;
       } else if (temperature <= 0) {
         hue = map(temperature, -30, 0, 225, 190);
         lightness = map(temperature, -30, 0, 60, 80);
