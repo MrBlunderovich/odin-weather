@@ -148,6 +148,9 @@ function constructTable(arrayOf72Hours) {
       } else if (temperature < 31) {
         hue = map(temperature, 1, 30, 75, 1);
         lightness = map(temperature, 1, 30, 80, 60);
+      } else {
+        hue = 1;
+        lightness = 60;
       }
       return `hsl(${hue},100%,${lightness}%)`;
     }
@@ -160,8 +163,8 @@ function constructTable(arrayOf72Hours) {
     return dataCell;
 
     function cloudColor(cloudiness) {
-      const percentage = +cloudiness >= 5 ? 100 - cloudiness / 2 : 100;
-      return `hsl(0,0%,${percentage}%)`;
+      const lightness = +cloudiness >= 5 ? 100 - cloudiness / 2 : 100;
+      return `hsl(0,0%,${lightness}%)`;
     }
   }
 
@@ -172,11 +175,13 @@ function constructTable(arrayOf72Hours) {
     return dataCell;
 
     function rainColor(raininess) {
-      let percentage = +raininess >= 0.1 ? 100 - raininess * 20 : 100;
-      if (percentage < 30) {
-        percentage = 30;
+      let lightness =
+        +raininess >= 0.1 ? map(+raininess * 10, 1, 100, 950, 500) / 10 : 100;
+      //let lightness = +raininess >= 0.1 ? 100 - raininess * 20 : 100;
+      if (lightness < 30) {
+        lightness = 30;
       }
-      return `hsl(212,100%,${percentage}%)`;
+      return `hsl(212,100%,${lightness}%)`;
     }
   }
 
