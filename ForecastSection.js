@@ -4,12 +4,8 @@ const isMetric = JSON.parse(localStorage.getItem("isMetric"));
 
 export function populateForecastSection(data, targetNode) {
   console.log(data);
-  //const threeDayForecast = data.forecast.forecastday;
-  //console.log(threeDayForecast);
-  //constructTable(threeDayForecast);
   const arrayOf72Hours = composeHoursArray(data);
   console.log(arrayOf72Hours);
-  //console.table(arrayOf72Hours);
   targetNode.innerHTML = "";
   targetNode.appendChild(constructTable(arrayOf72Hours));
 }
@@ -130,7 +126,6 @@ function constructTable(arrayOf72Hours) {
     if (windSpeed <= 2) {
       lightness = 100;
     } else if (windSpeed <= 12) {
-      //hue goes from 200 to 0
       hue = map(windSpeed, 3, 12, 170, 0);
     } else if (windSpeed <= 20) {
       hue = map(windSpeed, 13, 20, 359, 270);
@@ -143,15 +138,13 @@ function constructTable(arrayOf72Hours) {
   function windDirectrionTd(data) {
     const dataCell = document.createElement("td");
     const angle = data.wind_degree;
-    //dataCell.textContent = "->";
     const arrow = document.createElement("i");
     dataCell.classList.add("wind-direction-cell");
     arrow.classList.add("wind-arrow", "wi", "wi-direction-down");
     arrow.style = `transform:rotate(${angle}deg);`;
     arrow.dataset.direction = data.wind_dir;
-    dataCell.dataset.direction = data.wind_dir;
+    dataCell.dataset.direction = data.wind_dir + `(${data.wind_degree}°)`;
     dataCell.appendChild(arrow);
-    //wi-direction-up
     return dataCell;
   }
 
@@ -217,43 +210,4 @@ function constructTable(arrayOf72Hours) {
       ((input - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
     );
   }
-  ///////////
-  /* 
-  function makeTd(content) {
-    const dataCell = document.createElement("td");
-    dataCell.textContent = content;
-    return dataCell;
-  }
-
-  function shortDayName(timeData) {
-    const dateTime = processDateTime(timeData);
-    return dateTime.dayName.slice(0, 2);
-  }
-
-  function dayNumber(timeData) {
-    const dateTime = processDateTime(timeData);
-    return dateTime.dayNumber;
-  }
-
-  function dayHour(timeData) {
-    const dateTime = processDateTime(timeData);
-    //String(dateTime.getMinutes()).padStart(2, "0")
-    return dateTime.dateHours + "h";
-  }
-
-  function windSpeed(hourData) {
-    return isMetric
-      ? Math.floor(hourData.wind_kph * 0.28)
-      : Math.floor(hourData.wind_mph);
-  }
-
-  function windGusts(hourData) {
-    return isMetric
-      ? Math.floor(hourData.gust_kph * 0.28)
-      : Math.floor(hourData.gust_mph);
-  }
-
-  function temperature(hourData) {
-    return isMetric ? Math.round(hourData.temp_c) : Math.round(hourData.temp_f);
-  } */
 }

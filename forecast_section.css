@@ -1,11 +1,22 @@
 .forecast {
   overflow-x: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #d5d5d5 #f4f4f4;
+}
+.forecast::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+.forecast::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: #d5d5d5;
 }
 .forecast-table {
   font-size: 0.6rem;
   background-color: #fff;
   table-layout: fixed;
   border-spacing: 1px;
+  user-select: none;
 }
 .forecast-table td {
   display: table-cell;
@@ -30,6 +41,7 @@
 }
 .wind-direction-cell {
   position: relative;
+  cursor: pointer;
 }
 .wind-direction-cell:hover::after {
   content: attr(data-direction);

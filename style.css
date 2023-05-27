@@ -25,11 +25,11 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  padding: 2rem 2rem 0 2rem;
 }
 .weather {
   display: flex;
   justify-content: space-between;
+  padding: 2rem 2rem 0 2rem;
 }
 .footer {
   padding: 0.5rem;
