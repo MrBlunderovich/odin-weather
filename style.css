@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons+Outlined");
 @import url("./primary_section.css");
 @import url("./secondary_section.css");
+@import url("./forecast_section.css");
 * {
   box-sizing: border-box;
   font-family: inherit;
@@ -24,11 +25,11 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  padding: 2rem 2rem 0 2rem;
 }
 .weather {
   display: flex;
   justify-content: space-between;
+  padding: 2rem 2rem 0 2rem;
 }
 .footer {
   padding: 0.5rem;

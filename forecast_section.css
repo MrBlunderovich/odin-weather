@@ -1,0 +1,56 @@
+.forecast {
+  overflow-x: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #d5d5d5 #f4f4f4;
+}
+.forecast::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+.forecast::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: #d5d5d5;
+}
+.forecast-table {
+  font-size: 0.6rem;
+  background-color: #fff;
+  table-layout: fixed;
+  border-spacing: 1px;
+  user-select: none;
+}
+.forecast-table td {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  height: 1.2rem;
+  color: black;
+}
+.table-header {
+  background-color: #ddd;
+  min-width: 3ch;
+}
+.is-night {
+  background-color: #aaa;
+}
+.odd-day {
+  background-color: #bbb;
+}
+.wind-arrow {
+  color: black;
+  font-size: 1rem;
+}
+.wind-direction-cell {
+  position: relative;
+  cursor: pointer;
+}
+.wind-direction-cell:hover::after {
+  content: attr(data-direction);
+  position: absolute;
+  bottom: 80%;
+  background-color: #555;
+  color: #fff;
+  border-radius: 8px 8px 8px 0;
+  font-size: 1rem;
+  padding: 0.2em 0.5em;
+  z-index: 1;
+}
