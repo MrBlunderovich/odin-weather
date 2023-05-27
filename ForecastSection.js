@@ -211,3 +211,49 @@ function constructTable(arrayOf72Hours) {
     );
   }
 }
+///////// drag-scrolling
+let isDown = false;
+let startX = 0;
+let scrollLeft = 0;
+export function handleDrag(event) {
+  if (event.target === "document" || !event.target.closest(".forecast")) {
+    return;
+  }
+  const slider = document.querySelector(".forecast");
+  //console.log(event);
+  const eventType = event.type;
+  switch (eventType) {
+    case "mousedown":
+      handleMouseDown(event);
+      break;
+    case "mouseleave":
+      handleMouseUp(event);
+      break;
+    case "mouseup":
+      handleMouseUp(event);
+      break;
+    case "mousemove":
+      handleMouseMove(event);
+      break;
+
+    default:
+      break;
+  }
+  function handleMouseDown(event) {
+    isDown = true;
+    slider.classList.add("active");
+    startX = event.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  }
+  function handleMouseUp(event) {
+    isDown = false;
+    slider.classList.remove("active");
+  }
+  function handleMouseMove(event) {
+    if (!isDown) return;
+    event.preventDefault();
+    const x = event.pageX - slider.offsetLeft;
+    const walk = x - startX;
+    slider.scrollLeft = scrollLeft - walk;
+  }
+}
