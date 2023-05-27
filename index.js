@@ -1,6 +1,6 @@
 import { populateSecondarySection } from "./SecondaryWeatherSection.js";
 import { populatePrimarySection } from "./PrimaryWeatherSection.js";
-import { populateForecastSection } from "./ForecastSection.js";
+import { populateForecastSection, handleDrag } from "./ForecastSection.js";
 
 const primarySection = document.querySelector(".weather__primary");
 const secondarySection = document.querySelector(".weather__secondary");
@@ -8,6 +8,11 @@ const forecastSection = document.querySelector(".forecast");
 
 document.addEventListener("submit", handleUserInput);
 document.addEventListener("click", handleClick);
+///
+document.addEventListener("mousedown", handleDrag);
+document.addEventListener("mouseleave", handleDrag);
+document.addEventListener("mouseup", handleDrag);
+document.addEventListener("mousemove", handleDrag);
 
 function handleClick(event) {
   const target = event.target;
