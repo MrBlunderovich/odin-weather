@@ -224,36 +224,23 @@ export function handleDrag(event) {
   const eventType = event.type;
   switch (eventType) {
     case "mousedown":
-      handleMouseDown(event);
+      isDown = true;
+      startX = event.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
       break;
     case "mouseleave":
-      handleMouseUp(event);
-      break;
     case "mouseup":
-      handleMouseUp(event);
+      isDown = false;
       break;
     case "mousemove":
-      handleMouseMove(event);
+      if (!isDown) return;
+      event.preventDefault();
+      const x = event.pageX - slider.offsetLeft;
+      const walk = x - startX;
+      slider.scrollLeft = scrollLeft - walk;
       break;
 
     default:
       break;
-  }
-  function handleMouseDown(event) {
-    isDown = true;
-    slider.classList.add("active");
-    startX = event.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-  }
-  function handleMouseUp(event) {
-    isDown = false;
-    slider.classList.remove("active");
-  }
-  function handleMouseMove(event) {
-    if (!isDown) return;
-    event.preventDefault();
-    const x = event.pageX - slider.offsetLeft;
-    const walk = x - startX;
-    slider.scrollLeft = scrollLeft - walk;
   }
 }
