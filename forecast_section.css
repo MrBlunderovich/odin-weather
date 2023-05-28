@@ -2,6 +2,8 @@
   overflow-x: scroll;
   scrollbar-width: thin;
   scrollbar-color: #d5d5d5 #f4f4f4;
+  display: grid;
+  grid-template-columns: auto auto;
 }
 .forecast::-webkit-scrollbar {
   width: 3px;
@@ -11,20 +13,40 @@
   border-radius: 0;
   background-color: #d5d5d5;
 }
+.forecast-legend {
+  grid-row: 1;
+  grid-column: 1;
+}
 .forecast-table {
+  grid-row: 1;
+  grid-column: 2;
+  cursor: e-resize;
+}
+.forecast-table,
+.forecast-legend {
   font-size: 0.6rem;
   background-color: #fff;
   table-layout: fixed;
   border-spacing: 1px;
   user-select: none;
-  cursor: e-resize;
 }
-.forecast-table td {
+.forecast-table td,
+.forecast-legend td {
   display: table-cell;
   text-align: center;
   vertical-align: middle;
-  height: 1.2rem;
+  /* height: 1.2rem; */
   color: black;
+}
+.forecast-legend td {
+  text-align: left;
+  white-space: nowrap;
+}
+.forecast-legend tr:nth-child(-n + 3) {
+  background-color: #ddd;
+}
+.forecast-table tr {
+  height: 1.2rem;
 }
 .table-header {
   background-color: #ddd;

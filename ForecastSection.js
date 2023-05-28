@@ -3,11 +3,23 @@ import { processDateTime } from "./index.js";
 const isMetric = JSON.parse(localStorage.getItem("isMetric"));
 
 export function populateForecastSection(data, targetNode) {
+  const tableRows = [
+    "dayName",
+    "dayNumber",
+    "dayHour",
+    "windSpeed",
+    "windGusts",
+    "windDirectrion",
+    "temperature",
+    "clouding",
+    "precipitation",
+  ];
   console.log(data);
   const arrayOf72Hours = composeHoursArray(data);
   console.log(arrayOf72Hours);
   targetNode.innerHTML = "";
-  targetNode.appendChild(constructTable(arrayOf72Hours));
+  targetNode.appendChild(constructLegend(tableRows));
+  targetNode.appendChild(constructTable(arrayOf72Hours, tableRows));
 }
 
 function composeHoursArray(data) {
@@ -20,18 +32,40 @@ function composeHoursArray(data) {
   return seventyTwoHours;
 }
 
-function constructTable(arrayOf72Hours) {
-  const tableRows = [
-    "dayName",
-    "dayNumber",
-    "dayHour",
-    "windSpeed",
-    "windGusts",
-    "windDirectrion",
-    "temperature",
-    "clouding",
-    "precipitation",
-  ];
+function constructLegend(tableRows) {
+  const tableRowElements = {};
+  const fragment = document.createDocumentFragment();
+  const tableElement = document.createElement("table");
+  tableElement.classList.add("forecast-legend");
+  tableRows.forEach((rowName, index) => {
+    const newRow = document.createElement("tr");
+    newRow.classList.add("row-" + rowName, "forecast-legend__row");
+    newRow.dataset.index = index;
+    newRow.dataset.name = rowName;
+    tableElement.appendChild(newRow);
+    tableRowElements[rowName] = newRow;
+  });
+  tableRowElements.dayName.appendChild(makeTd("Day"));
+  tableRowElements.dayNumber.appendChild(makeTd("Date"));
+  tableRowElements.dayHour.appendChild(makeTd("Hour (24h)"));
+  tableRowElements.windSpeed.appendChild(makeTd("Wind Speed (m/s)"));
+  tableRowElements.windGusts.appendChild(makeTd("Wind Gusts (m/s)"));
+  tableRowElements.windDirectrion.appendChild(makeTd("Wind Direction"));
+  tableRowElements.temperature.appendChild(makeTd("Temperature (°C)"));
+  tableRowElements.clouding.appendChild(makeTd("Clouds (%)"));
+  tableRowElements.precipitation.appendChild(makeTd("Precipitation (mm/h)"));
+
+  fragment.appendChild(tableElement);
+  return fragment;
+
+  function makeTd(content) {
+    const newTd = document.createElement("td");
+    newTd.textContent = content;
+    return newTd;
+  }
+}
+
+function constructTable(arrayOf72Hours, tableRows) {
   const tableRowElements = {};
   const fragment = document.createDocumentFragment();
   const tableElement = document.createElement("table");
@@ -55,7 +89,6 @@ function constructTable(arrayOf72Hours) {
     tableRowElements.clouding.appendChild(cloudingTd(hour));
     tableRowElements.precipitation.appendChild(precipitationTd(hour));
   });
-  console.log(tableRowElements);
 
   fragment.appendChild(tableElement);
   return fragment;
