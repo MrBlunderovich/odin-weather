@@ -1,8 +1,9 @@
 import { processDateTime } from "./index.js";
 
-const isMetric = JSON.parse(localStorage.getItem("isMetric"));
+let isMetric = JSON.parse(localStorage.getItem("isMetric"));
 
 export function populateForecastSection(data, targetNode) {
+  isMetric = JSON.parse(localStorage.getItem("isMetric"));
   const tableRows = [
     "dayName",
     "dayNumber",
@@ -14,9 +15,7 @@ export function populateForecastSection(data, targetNode) {
     "clouding",
     "precipitation",
   ];
-  console.log(data);
   const arrayOf72Hours = composeHoursArray(data);
-  console.log(arrayOf72Hours);
   targetNode.innerHTML = "";
   targetNode.appendChild(constructLegend(tableRows));
   targetNode.appendChild(constructTable(arrayOf72Hours, tableRows));
@@ -48,10 +47,16 @@ function constructLegend(tableRows) {
   tableRowElements.dayName.appendChild(makeTd("Day"));
   tableRowElements.dayNumber.appendChild(makeTd("Date"));
   tableRowElements.dayHour.appendChild(makeTd("Hour (24h)"));
-  tableRowElements.windSpeed.appendChild(makeTd("Wind Speed (m/s)"));
-  tableRowElements.windGusts.appendChild(makeTd("Wind Gusts (m/s)"));
+  tableRowElements.windSpeed.appendChild(
+    makeTd(`Wind Speed (${isMetric ? "m/s" : "mph"})`)
+  );
+  tableRowElements.windGusts.appendChild(
+    makeTd(`Wind Gusts (${isMetric ? "m/s" : "mph"})`)
+  );
   tableRowElements.windDirectrion.appendChild(makeTd("Wind Direction"));
-  tableRowElements.temperature.appendChild(makeTd("Temperature (°C)"));
+  tableRowElements.temperature.appendChild(
+    makeTd(`Temperature (°${isMetric ? "C" : "F"})`)
+  );
   tableRowElements.clouding.appendChild(makeTd("Clouds (%)"));
   tableRowElements.precipitation.appendChild(makeTd("Precipitation (mm/h)"));
 
@@ -185,7 +190,7 @@ function constructTable(arrayOf72Hours, tableRows) {
     const dataCell = document.createElement("td");
     dataCell.textContent = isMetric
       ? Math.round(data.temp_c)
-      : Math.round(hourData.temp_f);
+      : Math.round(data.temp_f);
     dataCell.style = `background-color: ${tempColor(data.temp_c)};`;
     return dataCell;
 
@@ -249,7 +254,10 @@ let isDown = false;
 let startX = 0;
 let scrollLeft = 0;
 export function handleDrag(event) {
-  if (event.target === "document" || !event.target.closest(".forecast")) {
+  if (
+    event.target.nodeName === "#document" ||
+    !event.target.closest(".forecast")
+  ) {
     return;
   }
   const slider = document.querySelector(".forecast");
