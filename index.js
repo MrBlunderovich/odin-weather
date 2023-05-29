@@ -5,6 +5,7 @@ import { populateForecastSection, handleDrag } from "./ForecastSection.js";
 const primarySection = document.querySelector(".weather__primary");
 const secondarySection = document.querySelector(".weather__secondary");
 const forecastSection = document.querySelector(".forecast");
+const root = document.documentElement;
 
 document.addEventListener("submit", handleUserInput);
 document.addEventListener("click", handleClick);
@@ -24,7 +25,6 @@ function handleClick(event) {
 }
 
 async function handleUserInput(event) {
-  console.log(event);
   event.preventDefault();
   const location = event.target.location.value;
   const weatherData = await fetchAndDisplay(location);
@@ -41,6 +41,13 @@ async function fetchAndDisplay(location) {
   }
   const weatherData = await weatherAPICall(location);
   if (!weatherData.error) {
+    const isDay = weatherData.current.is_day ? true : false;
+    root.style.setProperty(
+      "--bg-image",
+      isDay
+        ? 'url("https://picsum.photos/id/984/4000/2248")'
+        : 'url("https://picsum.photos/id/869/2000/1333")'
+    );
     populatePrimarySection(weatherData, primarySection);
     populateSecondarySection(weatherData, secondarySection);
     populateForecastSection(weatherData, forecastSection);
