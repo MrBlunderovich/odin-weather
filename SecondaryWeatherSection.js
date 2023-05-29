@@ -43,7 +43,6 @@ export function populateSecondarySection(data, targetNode) {
       icon: "wi-sunset",
     },
   ];
-  console.log(astroData);
   const fragment = SecondaryWeatherSection(secondaryElements);
   targetNode.innerHTML = "";
   targetNode.appendChild(fragment);
@@ -58,7 +57,6 @@ function formatTime(time, isMetric) {
     const minutes = time.slice(3, 5);
     return `${metricHours}:${minutes}`;
   } else {
-    //return time.toLowerCase();
     return `${time.slice(0, 5)} <span class="am-pm">${time
       .slice(-2)
       .toLowerCase()}</span>`;
