@@ -25,7 +25,6 @@ function handleClick(event) {
 }
 
 async function handleUserInput(event) {
-  console.log(event);
   event.preventDefault();
   const location = event.target.location.value;
   const weatherData = await fetchAndDisplay(location);
