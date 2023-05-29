@@ -1,4 +1,9 @@
+/* .forecast {
+  display: flex;
+  flex-direction: column;
+} */
 .forecast {
+  margin-top: auto;
   overflow-x: scroll;
   scrollbar-width: thin;
   scrollbar-color: #d5d5d5 #f4f4f4;

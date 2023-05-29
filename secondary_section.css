@@ -1,7 +1,7 @@
 .weather__secondary {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.4rem;
 }
 .secondary {
   display: grid;
@@ -26,9 +26,6 @@
   grid-row: 2;
   font-size: 1.2rem;
 }
-
-.forecast {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
+.am-pm {
+  font-size: 0.5em;
 }
