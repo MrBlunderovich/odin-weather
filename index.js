@@ -42,9 +42,7 @@ async function fetchAndDisplay(location) {
   }
   const weatherData = await weatherAPICall(location);
   if (!weatherData.error) {
-    console.log(weatherData.current.is_day);
     const isDay = weatherData.current.is_day ? true : false;
-    console.log(isDay);
     root.style.setProperty(
       "--bg-image",
       isDay
