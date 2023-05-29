@@ -29,3 +29,7 @@
 .am-pm {
   font-size: 0.5em;
 }
+.wi-direction-down {
+  font-size: 3em;
+  min-width: 1.3rem;
+}

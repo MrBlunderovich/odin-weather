@@ -28,7 +28,9 @@ export function populateSecondarySection(data, targetNode) {
         ? Math.floor(+data.current.wind_kph * 0.28) + " m/s"
         : Math.floor(+data.current.wind_mph) + " mph",
       caption: "Wind Speed",
-      icon: "wi-strong-wind",
+      //icon: "wi-strong-wind",
+      icon: "wi-direction-down",
+      angle: data.current.wind_degree,
     },
     {
       name: "sunrise",
@@ -77,6 +79,9 @@ function SecondaryWeatherElement(element) {
   container.classList.add(`secondary__${element.name}`, "secondary");
   const icon = document.createElement("i");
   icon.classList.add("secondary__icon", "wi", element.icon);
+  if (icon.matches(".wi-direction-down")) {
+    icon.style = `transform:rotate(${element.angle}deg);`;
+  }
   const caption = document.createElement("span");
   caption.classList.add("secondary__caption");
   caption.textContent = element.caption;
