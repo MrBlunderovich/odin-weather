@@ -56,4 +56,5 @@ input:-webkit-autofill:focus {
 }
 .primary__icon {
   font-size: 4rem;
+  filter: grayscale(1) brightness(3);
 }
