@@ -1,5 +1,6 @@
 export function populateSecondarySection(data, targetNode) {
   const isMetric = JSON.parse(localStorage.getItem("isMetric"));
+  const astroData = data.forecast.forecastday[0].astro;
   const secondaryElements = [
     {
       name: "feelsLike",
@@ -29,10 +30,37 @@ export function populateSecondarySection(data, targetNode) {
       caption: "Wind Speed",
       icon: "wi-strong-wind",
     },
+    {
+      name: "sunrise",
+      value: formatTime(astroData.sunrise, isMetric),
+      caption: "Sunrize at",
+      icon: "wi-sunrise",
+    },
+    {
+      name: "sunset",
+      value: formatTime(astroData.sunset, isMetric),
+      caption: "Sunset at",
+      icon: "wi-sunset",
+    },
   ];
   const fragment = SecondaryWeatherSection(secondaryElements);
   targetNode.innerHTML = "";
   targetNode.appendChild(fragment);
+}
+
+function formatTime(time, isMetric) {
+  if (isMetric) {
+    const amPm = time.slice(-2);
+    const amHours = time.slice(0, 2);
+    const pmHours = String(+amHours + 12).padStart(2, "0");
+    const metricHours = amPm === "AM" ? amHours : pmHours;
+    const minutes = time.slice(3, 5);
+    return `${metricHours}:${minutes}`;
+  } else {
+    return `${time.slice(0, 5)} <span class="am-pm">${time
+      .slice(-2)
+      .toLowerCase()}</span>`;
+  }
 }
 
 function SecondaryWeatherSection(elements) {
