@@ -18,6 +18,7 @@
   font-size: 2rem;
 }
 .location-input {
+  width: 20ch;
   font-size: 0.8rem;
   background-color: transparent;
   outline: none;
@@ -26,7 +27,7 @@
   padding: 0 0 0.1rem 0.3rem;
 }
 .location-input::placeholder {
-  color: #ddd;
+  color: #eee;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -35,6 +36,7 @@ input:-webkit-autofill:focus {
 
 .conditions {
   font-size: 2rem;
+  white-space: break-spaces;
 }
 .location {
   font-size: 1rem;
