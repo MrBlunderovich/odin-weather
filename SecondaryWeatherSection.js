@@ -34,7 +34,7 @@ export function populateSecondarySection(data, targetNode) {
     {
       name: "sunrise",
       value: formatTime(astroData.sunrise, isMetric),
-      caption: "Sunrize at",
+      caption: "Sunrise at",
       icon: "wi-sunrise",
     },
     {

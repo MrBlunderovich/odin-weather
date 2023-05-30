@@ -36,9 +36,11 @@ async function handleUserInput(event) {
 }
 
 async function fetchAndDisplay(location) {
+  const backdrop = document.getElementById("backdrop");
   if (!location) {
     location = localStorage.getItem("location");
   }
+  backdrop.style = "";
   const weatherData = await weatherAPICall(location);
   if (!weatherData.error) {
     const isDay = weatherData.current.is_day ? true : false;
@@ -54,6 +56,7 @@ async function fetchAndDisplay(location) {
   } else {
     populatePrimarySection(weatherData, primarySection);
   }
+  backdrop.style.display = "none";
 
   return weatherData;
 }
