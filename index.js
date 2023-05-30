@@ -1,6 +1,7 @@
 import { populateSecondarySection } from "./SecondaryWeatherSection.js";
 import { populatePrimarySection } from "./PrimaryWeatherSection.js";
 import { populateForecastSection, handleDrag } from "./ForecastSection.js";
+//import { showSpinner, removeSpinner } from "./Spinner.js";
 
 const primarySection = document.querySelector(".weather__primary");
 const secondarySection = document.querySelector(".weather__secondary");
@@ -36,9 +37,11 @@ async function handleUserInput(event) {
 }
 
 async function fetchAndDisplay(location) {
+  const backdrop = document.getElementById("backdrop");
   if (!location) {
     location = localStorage.getItem("location");
   }
+  backdrop.style = "";
   const weatherData = await weatherAPICall(location);
   if (!weatherData.error) {
     const isDay = weatherData.current.is_day ? true : false;
@@ -54,6 +57,7 @@ async function fetchAndDisplay(location) {
   } else {
     populatePrimarySection(weatherData, primarySection);
   }
+  backdrop.style.display = "none";
 
   return weatherData;
 }
