@@ -1,7 +1,6 @@
 import { populateSecondarySection } from "./SecondaryWeatherSection.js";
 import { populatePrimarySection } from "./PrimaryWeatherSection.js";
 import { populateForecastSection, handleDrag } from "./ForecastSection.js";
-//import { showSpinner, removeSpinner } from "./Spinner.js";
 
 const primarySection = document.querySelector(".weather__primary");
 const secondarySection = document.querySelector(".weather__secondary");

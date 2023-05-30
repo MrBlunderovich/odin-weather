@@ -3,9 +3,6 @@
 @import url("./primary_section.css");
 @import url("./secondary_section.css");
 @import url("./forecast_section.css");
-/* :root {
-  --bg-image: url("https://picsum.photos/id/984/4000/2248");
-} */
 * {
   box-sizing: border-box;
   font-family: inherit;
@@ -22,8 +19,6 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   background-color: #1b354a;
-  /* background-image: url("https://picsum.photos/id/869/2000/1333");
-  background-image: url("https://picsum.photos/id/984/4000/2248"); */
   background-image: var(--bg-image);
   background-repeat: no-repeat;
   background-position: center;
